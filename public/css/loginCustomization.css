@@ -1,0 +1,18 @@
+#loginForm {
+    padding: 0;
+}
+
+@media only screen and (max-width: 600px) {
+
+    html, body {
+        background: #4db6ac;
+    }
+
+    #loginForm {
+        background: #F8F8F8;
+    }
+
+    #loginInfo {
+        background: #4db6ac;
+    }
+}

@@ -1,5 +1,2 @@
 import StartNavBar from './startNavBar'
-
-export {
-  StartNavBar
-}
+export default StartNavBar
