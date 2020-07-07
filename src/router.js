@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import { LoginPage } from './pages'
+import { LoginPage, MapPage } from './pages'
 
 function App() {
 
@@ -8,6 +8,7 @@ function App() {
       <Router>
           <Switch>
             <Route exact path={'/'} component={LoginPage}/>
+            <Route exact path={'/home'} component={MapPage}/>
           </Switch>
       </Router>
     )
