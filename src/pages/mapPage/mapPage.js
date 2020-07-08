@@ -1,10 +1,14 @@
 import React from 'react'
 import MapComponent from './mapComponent'
+import SideNav from './sideNav'
 
 function MapPage() {
 
     return(
-        <MapComponent />
+        <div>
+            <MapComponent />
+            <SideNav />
+        </div>
     )
 }
 
