@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import AssideInfo from './assideInfo'
+import { AssideInfo } from '../../components'
 import LoginForm from './loginForm'
 import { StartNavBar } from '../../components'
 
-function LoginPage() {
+function LoginPage(props) {
 
   useEffect(() => {
     const elem = document.querySelector('body');
@@ -15,12 +15,13 @@ function LoginPage() {
 
       <div id="loginForm" className="col s12 m7">
         <StartNavBar />
-        <LoginForm />
+        <LoginForm {...props}/>
       </div>
 
       <div id="loginInfo" className="col s12 m5">
         <AssideInfo />
       </div>
+      
     </div>
   )
 }

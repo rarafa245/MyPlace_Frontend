@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import { LoginPage, MapPage } from './pages'
+import { LoginPage, MapPage, LogoutPage } from './pages'
 
 function App() {
 
@@ -9,6 +9,7 @@ function App() {
           <Switch>
             <Route exact path={'/'} component={LoginPage}/>
             <Route exact path={'/home'} component={MapPage}/>
+            <Route exact path={'/logout'} component={LogoutPage}/>
           </Switch>
       </Router>
     )

@@ -24,3 +24,11 @@
     padding: 10px;
     z-index: 400;
 }
+
+.link {
+    opacity: 0.8;
+}
+
+.link:hover {
+    color: #009688;
+  }

@@ -3,7 +3,7 @@ import React from 'react'
 function AssideInfo() {
   return (
     <div className="container">
-      <img className="circle responsive-img mt-1 mt-m-3" src={require('../../../assets/mapImg.jpg')} />
+      <img className="circle responsive-img mt-1 mt-m-3" src={require('../../assets/mapImg.jpg')} />
       <p className="center-align"><b>Store locations, make comments and access whenever you want!</b></p>
       <p className="center-align"><b>With your own interactive map, select desired positions and insert markers. Create your own list of desired establishments!</b></p>
 

@@ -1,34 +1,49 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
 function SideNav(){
 
+    const [sideNav, setSideNav] = useState()
+
     useEffect(() => {
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, {});
+        const elems = document.querySelectorAll('.sidenav')  
+        const instance = M.Sidenav.init(elems, {})[0]
+        setSideNav(instance)
+
+        return () => {
+            instance.close()
+            instance.destroy()
+        }
+
     }, [])
 
     return (
         <div>
             <div>
-                <ul id="slide-out" class="sidenav">
-                    <li><div class="user-view">
-                    <div class="background">
-                        <img src="images/office.jpg" />
-                    </div>
-                    <a href="#user"><img class="circle" src="images/yuna.jpg" /></a>
-                    <a href="#name"><span class="white-text name">John Doe</span></a>
-                    <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-                    </div></li>
-                    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-                    <li><a href="#!">Second Link</a></li>
-                    <li><div class="divider"></div></li>
-                    <li><a class="subheader">Subheader</a></li>
-                    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+
+                <ul id="slide-out" className="sidenav">
+                    <li>
+                        <div className="user-view">
+                            <div className="background">
+                                <img src={require('../../../assets/backgroundNav.jpg')} />
+                            </div>
+                            <a href="#user"><img className="circle" src="images/yuna.jpg" /></a>
+                            <a href="#name"><span className="white-text name">{localStorage.getItem('username')}</span></a>
+                            <a href="#email"><span className="white-text email">{localStorage.getItem('email')}</span></a>
+                        </div>
+                    </li>
+                    <li><a href="#!" className="link"><i className="material-icons">cloud</i>Meus Locais</a></li>
+                    <li><a href="#!" className="link"><i className="material-icons">search</i>Pesquisar Local</a></li>
+                    <li><div className="divider"></div></li>
+                    <li><a href="#!" className="link"><i className="material-icons">add</i>Adicionar Local</a></li>
+                    <li><a onClick={() => sideNav.close()} href="#!" className="link"><i className="material-icons">account_circle</i>Minha Conta</a></li>
+                    <li><Link to="/logout" className="link sidenav-trigger"><i className="material-icons">chevron_left</i>Sair</Link></li>
                 </ul>
+
                 <a  data-target="slide-out" 
-                    class="btn-floating btn-large floatButton teal dark-2 sidenav-trigger">
-                    <i class="material-icons">menu</i>
+                    className="btn-floating btn-large floatButton teal dark-2 sidenav-trigger">
+                    <i className="material-icons">menu</i>
                 </a>
             </div>  
         </div>
