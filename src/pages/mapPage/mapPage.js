@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MapComponent from './mapComponent'
 import SideNav from './sideNav'
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
 
 function MapPage() {
 
     return(
         <div>
-            <MapComponent />
-            <SideNav />
+            <Provider store={store} >
+                <MapComponent />
+                <SideNav />
+            </ Provider>
         </div>
     )
 }

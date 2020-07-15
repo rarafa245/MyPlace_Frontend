@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setMapCoordsFlag } from '../redux'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
 function SideNav(){
 
     const [sideNav, setSideNav] = useState()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const elems = document.querySelectorAll('.sidenav')  
@@ -18,10 +21,18 @@ function SideNav(){
 
     }, [])
 
+    const addLocal = () => {
+
+        sideNav.close()
+        M.toast({html: 'Selecione o Local Desejado no Mapa'})
+        dispatch(
+            setMapCoordsFlag()
+        )
+    }
+
     return (
         <div>
             <div>
-
                 <ul id="slide-out" className="sidenav">
                     <li>
                         <div className="user-view">
@@ -36,8 +47,8 @@ function SideNav(){
                     <li><a href="#!" className="link"><i className="material-icons">cloud</i>Meus Locais</a></li>
                     <li><a href="#!" className="link"><i className="material-icons">search</i>Pesquisar Local</a></li>
                     <li><div className="divider"></div></li>
-                    <li><a href="#!" className="link"><i className="material-icons">add</i>Adicionar Local</a></li>
-                    <li><a onClick={() => sideNav.close()} href="#!" className="link"><i className="material-icons">account_circle</i>Minha Conta</a></li>
+                    <li><a onClick={() => addLocal()} href="#!" className="link"><i className="material-icons">add</i>Adicionar Local</a></li>
+                    <li><a href="#!" className="link"><i className="material-icons">account_circle</i>Minha Conta</a></li>
                     <li><Link to="/logout" className="link sidenav-trigger"><i className="material-icons">chevron_left</i>Sair</Link></li>
                 </ul>
 

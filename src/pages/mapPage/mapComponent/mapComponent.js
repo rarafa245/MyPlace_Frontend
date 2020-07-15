@@ -1,12 +1,23 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { cleanMapCoordsFlag, setRegisterCoordsFlag } from '../redux'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 function MapComponent() {
 
     const position = [-19.9320, -43.9380]
+    const dispatch = useDispatch()
+    const setCoordsFlag = useSelector( state => state.setCoordsFlag )
+    const x = useSelector( state => state )
 
+    
     const clickEvent = (e) => {
-        console.log(e.latlng.lat , e.latlng.lng)
+        if (setCoordsFlag) {
+            alert(`${e.latlng.lat} , ${e.latlng.lng}`)
+            dispatch(cleanMapCoordsFlag())
+            dispatch(setRegisterCoordsFlag())
+        }
+        console.log(x)
     }
 
     return(
