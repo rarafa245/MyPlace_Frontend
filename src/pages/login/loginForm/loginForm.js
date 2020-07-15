@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import M from 'materialize-css/dist/js/materialize.min.js'
+import { SubmitButton } from '../../../components'
 import { axiosLogin } from '../../../services'
 
 function LoginForm(props){
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
 
   const handleSubmit = (event) => {
 
     event.preventDefault()
+    setLoading(true)
     
     const LOGINDATA = new FormData(event.target)
     
     axiosLogin(LOGINDATA)
       .then(response => {
+        setLoading(false)
         if (response.status) {
           localStorage.setItem('JWT', response.JWT)
           localStorage.setItem('userId', response.userId)
@@ -54,14 +58,18 @@ function LoginForm(props){
                   />
         </div>
 
-        <button className="btn waves-effect waves-light mt-1 teal dark-2" 
-                type="submit" 
-                name="action">
-          Submit
-        </button>
+        <SubmitButton message='Entrar' />
         <a className="right m-1">Forgot Account?</a>
 
       </form>
+
+      {
+        (loading) ? ( <div className="progress col s6 offset-s3">
+                        <div className="indeterminate"></div>
+                      </div>
+                    )
+                  : ""
+      }
 
     </div>
   )
