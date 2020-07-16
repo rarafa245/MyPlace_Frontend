@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import M from 'materialize-css/dist/js/materialize.min.js'
 import { SubmitButton } from '../../../../../components'
 import { axiosRegisterCoords } from '../../../../../services'
+
 
 function AddCoordForm(props){
 
     const [localName, setLocalName] = useState('')
     const [group, setGroup] = useState('')
+    const x = useSelector( state => state.x )
+    const y = useSelector( state => state.y )
 
     useEffect(() => {
         const elems = document.querySelectorAll('select')
@@ -25,11 +29,16 @@ function AddCoordForm(props){
 
     const submitLocal = () => {
 
-        event.preventDefault()
         props.cleanRegisterCoordsFlag()
 
         const LOGINDATA = new FormData(event.target)
+        LOGINDATA.append('x', x)
+        LOGINDATA.append('y', y)
+
         axiosRegisterCoords(LOGINDATA)
+            .then(() => {
+                console.log('Deu')
+            })
 
     }
 
@@ -37,7 +46,6 @@ function AddCoordForm(props){
         props.cleanRegisterCoordsFlag()
         location.reload();
     }
-
 
 
     return (

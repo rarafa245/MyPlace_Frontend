@@ -9,11 +9,16 @@ const setMapCoordsFlag = () => ({type: SET_MAP_COORDS_FLAG})
 const cleanMapCoordsFlag = () => ({type: CLEAN_MAP_COORDS_FLAG})
 const setRegisterCoordsFlag = () => ({type: SET_REGISTER_COORDS_FLAG})
 const cleanRegisterCoordsFlag = () => ({type: CLEAN_REGISTER_COORDS_FLAG})
+const storeMapCoords = (x, y) => ({type: STORE_MAP_COORDS,
+                                    x: x,
+                                    y: y
+                                })
 
 export {
     setMapCoordsFlag,
     cleanMapCoordsFlag,
     setRegisterCoordsFlag,
-    cleanRegisterCoordsFlag
+    cleanRegisterCoordsFlag,
+    storeMapCoords
 }
 

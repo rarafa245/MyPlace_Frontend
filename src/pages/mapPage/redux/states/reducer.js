@@ -7,7 +7,9 @@ import {
 
 const initialStore = {
     setCoordsFlag: false,
-    registerCoordsFlag: false
+    registerCoordsFlag: false,
+    x: '',
+    y: ''
 }
 
 const reducer = (state = initialStore, action) => {
@@ -35,6 +37,13 @@ const reducer = (state = initialStore, action) => {
             return {
                 ...state,
                 registerCoordsFlag: false
+            }
+
+        case STORE_MAP_COORDS:
+            return {
+                ...state,
+                x: action.x,
+                y: action.y
             }
             
          default:

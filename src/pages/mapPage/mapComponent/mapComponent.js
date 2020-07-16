@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { cleanMapCoordsFlag, setRegisterCoordsFlag } from '../redux'
+import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords } from '../redux'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 function MapComponent() {
@@ -8,16 +8,21 @@ function MapComponent() {
     const position = [-19.9320, -43.9380]
     const dispatch = useDispatch()
     const setCoordsFlag = useSelector( state => state.setCoordsFlag )
-    const x = useSelector( state => state )
+    const [clickMarker, setClickMarker] = useState()
 
     
     const clickEvent = (e) => {
+
         if (setCoordsFlag) {
-            alert(`${e.latlng.lat} , ${e.latlng.lng}`)
             dispatch(cleanMapCoordsFlag())
             dispatch(setRegisterCoordsFlag())
+            dispatch(storeMapCoords(e.latlng.lat, e.latlng.lng))
+            setClickMarker(
+                <Marker position={[e.latlng.lat, e.latlng.lng]} >
+                    <Popup >Defina as Informações do Local!</Popup>
+                </Marker>
+            )
         }
-        console.log(x)
     }
 
     return(
@@ -29,6 +34,9 @@ function MapComponent() {
             <Marker position={position}>
                 <Popup>Olha Que Legal!</Popup>
             </Marker>
+
+            {clickMarker}
+
         </Map>
     )
 }
