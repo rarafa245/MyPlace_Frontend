@@ -42,7 +42,6 @@ function LoginForm(props){
 
         <div className="input-field center-align">
           <input  placeholder="Username"
-                  id="psername"
                   name="username"
                   value={username}
                   onChange={ e => setUsername(e.target.value) }
@@ -50,7 +49,6 @@ function LoginForm(props){
                   />
 
           <input  placeholder="Password"
-                  id="password"
                   name="password"
                   value={password}
                   onChange={ e => setPassword(e.target.value) }

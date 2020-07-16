@@ -9,6 +9,7 @@ async function axiosLogin(body){
         })
         .then(res => {
             if (res.data.status) {
+                console.log(res.data)
                 return {
                     status: res.data.status,
                     message: 'SUCCESS',

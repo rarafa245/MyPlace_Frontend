@@ -1,27 +1,65 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import M from 'materialize-css/dist/js/materialize.min.js'
+import { SubmitButton } from '../../../../../components'
+import { axiosRegisterCoords } from '../../../../../services'
 
-function AddCoordForm(){
+function AddCoordForm(props){
+
+    const [localName, setLocalName] = useState('')
+    const [group, setGroup] = useState('')
 
     useEffect(() => {
         const elems = document.querySelectorAll('select')
-        const instances = M.FormSelect.init(elems, {})
+        const instances = M.FormSelect.init(elems, {})[0]
+
+        props.setExpandNav('expand')
+        props.setActiveIcon('disabled')
+
+        return () => {
+            props.setExpandNav('')
+            props.setActiveIcon('')
+        }
+
     }, [])
+
+
+    const submitLocal = () => {
+
+        event.preventDefault()
+        props.cleanRegisterCoordsFlag()
+
+        const LOGINDATA = new FormData(event.target)
+        axiosRegisterCoords(LOGINDATA)
+
+    }
+
+    const cancelSubmit = () => {
+        props.cleanRegisterCoordsFlag()
+        location.reload();
+    }
+
+
 
     return (
         <div>
             <p className="ml-1"><b>Insira as Informações</b></p>
-            <form>
+            <form onSubmit={submitLocal}>
                 <div className="row">
                     <div className="input-field col s11">
-                        <input placeholder="Nome do Local" id="first_name" type="text" className="validate" />
+                        <input  className="validate"
+                                placeholder="Nome do Local" 
+                                name="localName"
+                                value={localName}
+                                onChange={ e => setLocalName(e.target.value) }
+                                type="text"
+                                 />
                     </div>
 
                     <div className="input-field col s11">
-                        <select>
-                        <option value="Restaurante">Restaurante</option>
-                        <option value="Lazer">Lazer</option>
-                        <option value="Serviços">Serviços</option>
+                        <select name="group" onChange={e => setGroup(e.target.value) }>
+                            <option name="group" value="Restaurante">Restaurante</option>
+                            <option name="group" value="Lazer">Lazer</option>
+                            <option name="group" value="Serviços">Serviços</option>
                         </select>
                     </div>
 
@@ -29,31 +67,36 @@ function AddCoordForm(){
                         <p ><b>Insira uma Nota</b></p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" /><span>1</span>
+                                <input name="rating" type="radio" value="5" /><span>5</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" /><span>2</span>
+                                <input name="rating" type="radio" value="4" /><span>4</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" /><span>3</span>
+                                <input name="rating" type="radio" value="3" /><span>3</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" /><span>4</span>
+                                <input name="rating" type="radio" value="2" /><span>2</span>
                             </label>
                         </p>
                         <p>
                             <label>
-                                <input name="group1" type="radio" /><span>5</span>
+                                <input name="rating" type="radio" value="1" /><span>1</span>
                             </label>
                         </p>
                     </div>
 
+                    <div className="row center-align">
+                        <SubmitButton message='Registrar' />
+                        <button onClick={cancelSubmit} className=" mt-1 ml-1 waves-effect waves-light teal dark-2 btn">Cancelar</button>
+                    </div>
+                    
                 </div>
             </form>
         </div>

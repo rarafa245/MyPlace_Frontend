@@ -1,5 +1,7 @@
-import { axiosLogin } from './axios'
+import { axiosLogin,
+        axiosRegisterCoords } from './axios'
 
 export {
-    axiosLogin
+    axiosLogin,
+    axiosRegisterCoords
 }

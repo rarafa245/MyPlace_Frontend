@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { GeneralOptions, AddCoordForm } from './displays'
 import M from 'materialize-css/dist/js/materialize.min.js'
+import { useSelector, useDispatch } from 'react-redux'
+import { setMapCoordsFlag,
+        cleanMapCoordsFlag,
+        setRegisterCoordsFlag,
+        cleanRegisterCoordsFlag } from '../redux'
 
 
 function SideNav(){
 
     const [sideNav, setSideNav] = useState()
+    const [expandNav, setExpandNav] = useState('')
+    const [activeIcon, setActiveIcon] = useState('')
+    const registerCoordsFlag = useSelector( state => state.registerCoordsFlag )
 
     useEffect(() => {
         const elems = document.querySelectorAll('.sidenav')  
@@ -19,9 +27,10 @@ function SideNav(){
 
     }, [])
 
+
     return (
         <div>
-            <ul id="slide-out" className={`sidenav`}>
+            <ul id="slide-out" className={`sidenav ${expandNav}`}>
                 <li>
                     <div className="user-view">
                         <div className="background">
@@ -33,12 +42,19 @@ function SideNav(){
                     </div>
                 </li>
 
-                <GeneralOptions sideNav={sideNav} />
+                {
+                    (registerCoordsFlag) ?  (<AddCoordForm  sideNav={sideNav} 
+                                                            setExpandNav={setExpandNav}
+                                                            setActiveIcon={setActiveIcon}
+                                                            cleanRegisterCoordsFlag={cleanRegisterCoordsFlag}/>)
+                                        : 
+                                            (<GeneralOptions sideNav={sideNav} />)
+                }
 
             </ul>
 
             <a  data-target="slide-out" 
-                className={`btn-floating btn-large floatButton teal dark-2 sidenav-trigger`}>
+                className={`btn-floating btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger `}>
                 <i className="material-icons">menu</i>
             </a>
         </div>
