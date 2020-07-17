@@ -3,7 +3,9 @@ import {
     cleanMapCoordsFlag,
     setRegisterCoordsFlag,
     cleanRegisterCoordsFlag,
-    storeMapCoords } from './states/actions'
+    storeMapCoords,
+    setSubmitMessage,
+    cleanSubmitMessage } from './states/actions'
 
     
 export {
@@ -11,5 +13,7 @@ export {
     cleanMapCoordsFlag,
     setRegisterCoordsFlag,
     cleanRegisterCoordsFlag,
-    storeMapCoords
+    storeMapCoords,
+    setSubmitMessage,
+    cleanSubmitMessage
 }

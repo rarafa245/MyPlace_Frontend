@@ -45,8 +45,7 @@ function SideNav(){
                 {
                     (registerCoordsFlag) ?  (<AddCoordForm  sideNav={sideNav} 
                                                             setExpandNav={setExpandNav}
-                                                            setActiveIcon={setActiveIcon}
-                                                            cleanRegisterCoordsFlag={cleanRegisterCoordsFlag}/>)
+                                                            setActiveIcon={setActiveIcon}/>)
                                         : 
                                             (<GeneralOptions sideNav={sideNav} />)
                 }

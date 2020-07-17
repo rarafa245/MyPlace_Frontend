@@ -3,13 +3,17 @@ import {
     CLEAN_MAP_COORDS_FLAG,
     SET_REGISTER_COORDS_FLAG,
     CLEAN_REGISTER_COORDS_FLAG,
-    STORE_MAP_COORDS } from './types'
+    STORE_MAP_COORDS,
+    SET_SUBMIT_MESSAGE,
+    CLEAN_SUBMIT_MESSAGE } from './types'
 
 const initialStore = {
     setCoordsFlag: false,
     registerCoordsFlag: false,
     x: '',
-    y: ''
+    y: '',
+    submitMessage: '',
+    status: false,
 }
 
 const reducer = (state = initialStore, action) => {
@@ -44,6 +48,21 @@ const reducer = (state = initialStore, action) => {
                 ...state,
                 x: action.x,
                 y: action.y
+            }
+        
+        case SET_SUBMIT_MESSAGE:
+            return {
+                ...state,
+                submitMessage: action.message,
+                status: action.status,
+                x: '',
+                y: ''
+            }
+        
+        case CLEAN_SUBMIT_MESSAGE:
+            return {
+                ...state,
+                submitMessage: ''
             }
             
          default:

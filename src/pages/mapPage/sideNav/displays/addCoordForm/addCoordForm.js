@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setSubmitMessage, cleanRegisterCoordsFlag } from '../../../redux'
 import M from 'materialize-css/dist/js/materialize.min.js'
 import { SubmitButton } from '../../../../../components'
 import { axiosRegisterCoords } from '../../../../../services'
@@ -7,6 +8,7 @@ import { axiosRegisterCoords } from '../../../../../services'
 
 function AddCoordForm(props){
 
+    const dispatch = useDispatch()
     const [localName, setLocalName] = useState('')
     const [group, setGroup] = useState('')
     const x = useSelector( state => state.x )
@@ -29,15 +31,25 @@ function AddCoordForm(props){
 
     const submitLocal = () => {
 
-        props.cleanRegisterCoordsFlag()
+        
+        event.preventDefault()
 
         const LOGINDATA = new FormData(event.target)
         LOGINDATA.append('x', x)
         LOGINDATA.append('y', y)
 
         axiosRegisterCoords(LOGINDATA)
-            .then(() => {
-                console.log('Deu')
+            .then((response) => {
+                props.setExpandNav('')
+                props.setActiveIcon('')
+                dispatch(cleanRegisterCoordsFlag())
+                dispatch(setSubmitMessage(response.status, response.message ))
+            })
+            .catch((error) => {
+                props.setExpandNav('')
+                props.setActiveIcon('')
+                dispatch(cleanRegisterCoordsFlag())
+                dispatch(setSubmitMessage(error.status, error.message))
             })
 
     }

@@ -1,14 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState,  } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords } from '../redux'
+import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords, cleanSubmitMessage } from '../redux'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import M from 'materialize-css/dist/js/materialize.min.js'
 
 function MapComponent() {
 
     const position = [-19.9320, -43.9380]
     const dispatch = useDispatch()
     const setCoordsFlag = useSelector( state => state.setCoordsFlag )
+    const submitMessage = useSelector( state => state.submitMessage )
+    const submitStatus = useSelector( state => state.status )
     const [clickMarker, setClickMarker] = useState()
+
+    const x = useSelector( state => state )
+
+    const cleanMessage = () => {
+
+        (submitStatus) ? M.toast({ html: submitMessage, completeCallback: () => window.location.reload() })
+                       : M.toast({ html: submitMessage})
+
+        dispatch(cleanSubmitMessage())
+    }
 
     
     const clickEvent = (e) => {
@@ -36,7 +49,10 @@ function MapComponent() {
             </Marker>
 
             {clickMarker}
-
+            {
+                (submitMessage) ?   (cleanMessage())
+                                :   null                   
+            }
         </Map>
     )
 }
