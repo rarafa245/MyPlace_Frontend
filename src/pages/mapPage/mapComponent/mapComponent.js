@@ -13,6 +13,7 @@ function MapComponent() {
     const dispatch = useDispatch()
     const setCoordsFlag = useSelector( state => state.setCoordsFlag )
     const submitMessage = useSelector( state => state.submitMessage )
+    const submitStatus = useSelector( state => state.status )
 
 
     const cleanMessage = () => {
