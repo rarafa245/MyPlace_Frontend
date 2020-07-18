@@ -6,14 +6,14 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 
 function MapComponent() {
 
-    const position = [-19.9320, -43.9380]
+    const position = [-19.9320, -43.9380]                       // Start Coordinates
+    const [clickMarker, setClickMarker] = useState()            // Marker after click
+
+    // Redux
     const dispatch = useDispatch()
     const setCoordsFlag = useSelector( state => state.setCoordsFlag )
     const submitMessage = useSelector( state => state.submitMessage )
-    const submitStatus = useSelector( state => state.status )
-    const [clickMarker, setClickMarker] = useState()
 
-    const x = useSelector( state => state )
 
     const cleanMessage = () => {
 
@@ -30,7 +30,7 @@ function MapComponent() {
             dispatch(cleanMapCoordsFlag())
             dispatch(setRegisterCoordsFlag())
             dispatch(storeMapCoords(e.latlng.lat, e.latlng.lng))
-            setClickMarker(
+            setClickMarker (
                 <Marker position={[e.latlng.lat, e.latlng.lng]} >
                     <Popup >Defina as Informações do Local!</Popup>
                 </Marker>
@@ -49,6 +49,7 @@ function MapComponent() {
             </Marker>
 
             {clickMarker}
+
             {
                 (submitMessage) ?   (cleanMessage())
                                 :   null                   

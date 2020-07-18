@@ -4,8 +4,13 @@ import LoginForm from './loginForm'
 import { StartNavBar } from '../../components'
 
 function LoginPage(props) {
+  /* Loggin Page Component
+      :props - history (BrowserRouter)
+    */
 
+    
   useEffect(() => {
+
     const elem = document.querySelector('body');
     elem.style.background = `linear-gradient(to left, #4db6ac 41.7%, #F8F8F8 30%)`
   }, [])

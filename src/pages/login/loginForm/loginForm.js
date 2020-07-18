@@ -5,6 +5,7 @@ import { axiosLogin } from '../../../services'
 
 function LoginForm(props){
 
+  // input states
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)

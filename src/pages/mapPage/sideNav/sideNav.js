@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { GeneralOptions, AddCoordForm } from './displays'
+import { useSelector } from 'react-redux'
 import M from 'materialize-css/dist/js/materialize.min.js'
-import { useSelector, useDispatch } from 'react-redux'
-import { setMapCoordsFlag,
-        cleanMapCoordsFlag,
-        setRegisterCoordsFlag,
-        cleanRegisterCoordsFlag } from '../redux'
+
 
 
 function SideNav(){
+    /* SideNav Component
+        :name   - sidenav : All the SideNav structure
+                - userPanel : Panel for user Infos (Image, Username, Email)
+                - options: options in SideNav (displays)
+                - button: expand SidevBar button
+    */
 
-    const [sideNav, setSideNav] = useState()
-    const [expandNav, setExpandNav] = useState('')
-    const [activeIcon, setActiveIcon] = useState('')
-    const registerCoordsFlag = useSelector( state => state.registerCoordsFlag )
+
+    const [sideNav, setSideNav] = useState()                                        // SideNav instance in Materialize
+    const [activeIcon, setActiveIcon] = useState('')                                // Active: null / disable: disabled
+    const registerCoordsFlag = useSelector( state => state.registerCoordsFlag )     // Flag to Register Coordinates
 
     useEffect(() => {
         const elems = document.querySelectorAll('.sidenav')  
@@ -29,9 +32,9 @@ function SideNav(){
 
 
     return (
-        <div>
-            <ul id="slide-out" className={`sidenav ${expandNav}`}>
-                <li>
+        <div name="sidenav">
+            <ul id="slide-out" className="sidenav">
+                <li name="userPanel">
                     <div className="user-view">
                         <div className="background">
                             <img src={require('../../../assets/backgroundNav.jpg')} />
@@ -42,17 +45,19 @@ function SideNav(){
                     </div>
                 </li>
 
-                {
-                    (registerCoordsFlag) ?  (<AddCoordForm  sideNav={sideNav} 
-                                                            setExpandNav={setExpandNav}
-                                                            setActiveIcon={setActiveIcon}/>)
-                                        : 
-                                            (<GeneralOptions sideNav={sideNav} />)
-                }
-
+                <div name="options">
+                    {
+                        (registerCoordsFlag) ?  (<AddCoordForm  sideNav={sideNav}
+                                                                setActiveIcon={setActiveIcon}/>)
+                                             : 
+                                                (<GeneralOptions sideNav={sideNav} />)
+                    }
+                </div>
+                
             </ul>
 
-            <a  data-target="slide-out" 
+            <a  name="icon"
+                data-target="slide-out" 
                 className={`btn-floating btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger `}>
                 <i className="material-icons">menu</i>
             </a>

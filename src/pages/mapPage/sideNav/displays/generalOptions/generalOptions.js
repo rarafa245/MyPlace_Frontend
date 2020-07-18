@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import M from 'materialize-css/dist/js/materialize.min.js'
 import { useDispatch } from 'react-redux'
@@ -6,6 +6,11 @@ import { setMapCoordsFlag } from '../../../redux'
 
 
 function GeneralOptions (props) {
+    /* Add Coords Options Component
+        :name   - options: General Options in Side Nav
+        :props  - sideNav: Instance of Navbar  - expand : open() / close: close()
+    */
+   
 
     const dispatch = useDispatch()
 
@@ -14,14 +19,12 @@ function GeneralOptions (props) {
 
         props.sideNav.close()
         M.toast({html: 'Selecione o Local Desejado no Mapa'})
-        dispatch (
-            setMapCoordsFlag()
-        )
+        dispatch (setMapCoordsFlag())
     }
 
 
     return (
-        <div>
+        <div name="options">
             <li><a href="#!" className="link"><i className="material-icons">cloud</i>Meus Locais</a></li>
             <li><a href="#!" className="link"><i className="material-icons">search</i>Pesquisar Local</a></li>
             <li><div className="divider"></div></li>

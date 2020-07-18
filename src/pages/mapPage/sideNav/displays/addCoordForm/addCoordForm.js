@@ -7,22 +7,32 @@ import { axiosRegisterCoords } from '../../../../../services'
 
 
 function AddCoordForm(props){
+    /* Add Coords Options Component
+        :name - addCoordsForm : Form with informations to Add Coords
+        :props  - sideNav : Instance of Navbar  - expand : open() / close: close()
+                - setActiveIcon : Function to activade / disavble Icon - null / disabled
+    */
 
-    const dispatch = useDispatch()
+
+    // Input states
     const [localName, setLocalName] = useState('')
     const [group, setGroup] = useState('')
+
+    // Redux
+    const dispatch = useDispatch()
     const x = useSelector( state => state.x )
     const y = useSelector( state => state.y )
 
+
     useEffect(() => {
-        const elems = document.querySelectorAll('select')
+        const elems = document.querySelectorAll('select')       // Select list
         const instances = M.FormSelect.init(elems, {})[0]
 
-        props.setExpandNav('expand')
+        props.sideNav.open()
         props.setActiveIcon('disabled')
 
         return () => {
-            props.setExpandNav('')
+            props.sideNav.close()
             props.setActiveIcon('')
         }
 
@@ -30,32 +40,31 @@ function AddCoordForm(props){
 
 
     const submitLocal = () => {
-
         
         event.preventDefault()
 
-        const LOGINDATA = new FormData(event.target)
-        LOGINDATA.append('x', x)
-        LOGINDATA.append('y', y)
+        const LOCALDATA = new FormData(event.target)
+        LOCALDATA.append('x', x)
+        LOCALDATA.append('y', y)
 
-        axiosRegisterCoords(LOGINDATA)
+        axiosRegisterCoords(LOCALDATA)
             .then((response) => {
-                props.setExpandNav('')
+                props.sideNav.close()
                 props.setActiveIcon('')
                 dispatch(cleanRegisterCoordsFlag())
                 dispatch(setSubmitMessage(response.status, response.message ))
             })
             .catch((error) => {
-                props.setExpandNav('')
+                props.sideNav.close()
                 props.setActiveIcon('')
                 dispatch(cleanRegisterCoordsFlag())
                 dispatch(setSubmitMessage(error.status, error.message))
             })
-
     }
 
     const cancelSubmit = () => {
-        props.cleanRegisterCoordsFlag()
+        props.sideNav.close()
+        dispatch(cleanRegisterCoordsFlag())
         location.reload();
     }
 
@@ -63,22 +72,22 @@ function AddCoordForm(props){
     return (
         <div>
             <p className="ml-1"><b>Insira as Informações</b></p>
-            <form onSubmit={submitLocal}>
+            <form name="addCoordsForm" onSubmit={submitLocal}>
                 <div className="row">
+
                     <div className="input-field col s11">
                         <input  className="validate"
                                 placeholder="Nome do Local" 
                                 name="localName"
                                 value={localName}
                                 onChange={ e => setLocalName(e.target.value) }
-                                type="text"
-                                 />
+                                type="text"/>
                     </div>
 
                     <div className="input-field col s11">
-                        <select name="group" onChange={e => setGroup(e.target.value) }>
-                            <option name="group" value="Restaurante">Restaurante</option>
+                        <select name="group" value={group} onChange={e => setGroup(e.target.value)}>
                             <option name="group" value="Lazer">Lazer</option>
+                            <option name="group" value="Restaurante">Restaurante</option>
                             <option name="group" value="Serviços">Serviços</option>
                         </select>
                     </div>
