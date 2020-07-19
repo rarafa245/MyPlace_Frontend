@@ -2,3 +2,7 @@ body {
     height: 100%;
     background: #4db6ac;
 }
+
+#star {
+    padding: 5px;
+}
