@@ -1,4 +1,6 @@
-import React, { useState,  } from 'react'
+import React, { useState, useEffect  } from 'react'
+import { axiosGetUserCoords } from '../../../services'
+import { LocalMarker } from '../../../components'
 import { useSelector, useDispatch } from 'react-redux'
 import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords, cleanSubmitMessage } from '../redux'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
@@ -8,12 +10,31 @@ function MapComponent() {
 
     const position = [-19.9320, -43.9380]                       // Start Coordinates
     const [clickMarker, setClickMarker] = useState()            // Marker after click
+    const [userLocals, setUserLocals] = useState()              // All user Locals infos
 
     // Redux
     const dispatch = useDispatch()
     const setCoordsFlag = useSelector( state => state.setCoordsFlag )
     const submitMessage = useSelector( state => state.submitMessage )
     const submitStatus = useSelector( state => state.status )
+
+    useEffect(() => {
+        axiosGetUserCoords()
+            .then(response => {
+                const userCoords = []
+                const receivedCoords = response.coords
+
+                receivedCoords.forEach((element, index) => {
+                    userCoords.push(<LocalMarker    key={index}
+                                                    x={element.x} 
+                                                    y={element.y} />)
+                })
+
+                setUserLocals(userCoords)
+
+                
+            })
+    }, [])
 
 
     const cleanMessage = () => {
@@ -45,9 +66,6 @@ function MapComponent() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             />
-            <Marker position={position}>
-                <Popup>Olha Que Legal!</Popup>
-            </Marker>
 
             {clickMarker}
 
@@ -55,6 +73,8 @@ function MapComponent() {
                 (submitMessage) ?   (cleanMessage())
                                 :   null                   
             }
+
+            {userLocals}
         </Map>
     )
 }
