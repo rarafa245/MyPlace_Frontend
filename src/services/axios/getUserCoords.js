@@ -4,7 +4,9 @@ async function axiosGetUserCoords(){
 
    const response = await axios.get('http://192.168.0.27:5000/userCoords',{
             headers: {
-                'UID': localStorage.getItem('userId')
+                'Content-Type': 'multipart/form-data',
+                'UID': localStorage.getItem('userId'),
+                'authentication': localStorage.getItem('JWT')
             }
         })
         .then(res => {

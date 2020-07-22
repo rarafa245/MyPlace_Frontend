@@ -25,13 +25,13 @@ function MapComponent() {
                 const receivedCoords = response.coords
 
                 receivedCoords.forEach((element, index) => {
-                    userCoords.push(<LocalMarker    key={index}     
-                                                    name={element.name}
+                    userCoords.push(<LocalMarker    name={element.name}
                                                     group={element.group}   
                                                     rating={element.rating}
                                                     x={element.x}           
                                                     y={element.y} 
                                                     notes={element.notes}
+                                                    key={index}
                                                     />)
                 })
 

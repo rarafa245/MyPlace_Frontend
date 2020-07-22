@@ -12,7 +12,7 @@ async function axiosLogin(body){
                 return {
                     status: res.data.status,
                     message: 'SUCCESS',
-                    JWT: res.data.token,
+                    JWT: res.data.JWT,
                     username: res.data.username,
                     email: res.data.email,
                     userId: res.data.userID

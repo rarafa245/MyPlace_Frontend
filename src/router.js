@@ -8,11 +8,20 @@ function App() {
       <Router>
           <Switch>
             <Route exact path={'/'} component={LoginPage}/>
-            <Route exact path={'/home'} component={MapPage}/>
-            <Route exact path={'/logout'} component={LogoutPage}/>
+            <PrivateRoute exact path={'/home'} component={MapPage}/>
+            <PrivateRoute exact path={'/logout'} component={LogoutPage}/>
           </Switch>
       </Router>
     )
 }
+
+
+const PrivateRoute = ({component: Component, ...rest}) => (
+  <Route {...rest} 
+      render = { props => (
+          (localStorage.getItem('JWT')) ? (<Component {...props} />) : (props.history.push('/'))
+      )}
+  />
+)
 
 export default App

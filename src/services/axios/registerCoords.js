@@ -4,7 +4,9 @@ async function axiosRegisterCoords(body){
 
    const response = await axios.post('http://192.168.0.27:5000/registerCoords', body,{
             headers: {
-                'UID': localStorage.getItem('userId')
+                'Content-Type': 'multipart/form-data',
+                'UID': localStorage.getItem('userId'),
+                'authentication': localStorage.getItem('JWT')
             }
         })
         .then(res => {
