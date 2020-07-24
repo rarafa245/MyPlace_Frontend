@@ -17,6 +17,7 @@ function AddCoordForm(props){
     // Input states
     const [localName, setLocalName] = useState('')
     const [group, setGroup] = useState('')
+    const [notes, setNotes] = useState('')
 
     // Redux
     const dispatch = useDispatch()
@@ -76,12 +77,13 @@ function AddCoordForm(props){
                 <div className="row">
 
                     <div className="input-field col s11">
-                        <input  className="validate"
-                                placeholder="Nome do Local" 
+                        <input  id="local"
+                                className="validate" 
                                 name="localName"
                                 value={localName}
                                 onChange={ e => setLocalName(e.target.value) }
                                 type="text"/>
+                        <label htmlFor="local">Nome do Local</label>
                     </div>
 
                     <div className="input-field col s11">
@@ -121,7 +123,18 @@ function AddCoordForm(props){
                         </p>
                     </div>
 
-                    <div className="row center-align">
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <textarea   id="textarea1" 
+                                        name="notes"
+                                        className="materialize-textarea"
+                                        value={notes} 
+                                        onChange={ e => setNotes(e.target.value) } />
+                            <label htmlFor="textarea1">Descrição (Opcional)</label>
+                        </div>
+                    </div>
+
+                    <div className="row center-align mb-3">
                         <SubmitButton message='Registrar' />
                         <button onClick={cancelSubmit} className=" mt-1 ml-1 waves-effect waves-light teal dark-2 btn">Cancelar</button>
                     </div>

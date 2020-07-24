@@ -60,7 +60,7 @@ function SideNav(){
 
             <a  name="icon"
                 data-target="slide-out" 
-                className={`btn-floating btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger `}>
+                className={`btn-floating mt-1 btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger `}>
                 <i className="material-icons">menu</i>
             </a>
         </div>
