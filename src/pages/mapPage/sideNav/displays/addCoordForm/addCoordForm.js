@@ -28,11 +28,11 @@ function AddCoordForm(props){
         const elems = document.querySelectorAll('select')       // Select list
         const instances = M.FormSelect.init(elems, {})[0]
 
-        props.sideNav.open()
+        props.setExpandNav('expand')
         props.setActiveIcon('disabled')
 
         return () => {
-            props.sideNav.close()
+            props.setExpandNav('')
             props.setActiveIcon('')
         }
 

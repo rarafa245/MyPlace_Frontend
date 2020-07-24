@@ -14,7 +14,8 @@ function SideNav(){
     */
 
 
-    const [sideNav, setSideNav] = useState()                                        // SideNav instance in Materialize
+    const [sideNav, setSideNav] = useState()   
+    const [expandNav, setExpandNav] = useState('')                                     // SideNav instance in Materialize
     const [activeIcon, setActiveIcon] = useState('')                                // Active: null / disable: disabled
     const registerCoordsFlag = useSelector( state => state.registerCoordsFlag )     // Flag to Register Coordinates
 
@@ -33,7 +34,7 @@ function SideNav(){
 
     return (
         <div name="sidenav">
-            <ul id="slide-out" className="sidenav">
+            <ul id="slide-out" className={`sidenav ${expandNav}`}>
                 <li name="userPanel">
                     <div className="user-view">
                         <div className="background">
@@ -48,6 +49,7 @@ function SideNav(){
                 <div name="options">
                     {
                         (registerCoordsFlag) ?  (<AddCoordForm  sideNav={sideNav}
+                                                                setExpandNav={setExpandNav}
                                                                 setActiveIcon={setActiveIcon}/>)
                                              : 
                                                 (<GeneralOptions sideNav={sideNav} />)
