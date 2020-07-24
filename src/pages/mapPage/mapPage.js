@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import MapComponent from './mapComponent'
 import SideNav from './sideNav'
 import { Provider } from 'react-redux'

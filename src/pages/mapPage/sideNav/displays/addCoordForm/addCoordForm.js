@@ -71,7 +71,7 @@ function AddCoordForm(props){
 
     return (
         <div>
-            <p className="ml-1"><b>Insira as Informações</b></p>
+            <p className="ml-1 op-3"><b>Insira as Informações</b></p>
             <form name="addCoordsForm" onSubmit={submitLocal}>
                 <div className="row">
 
@@ -86,14 +86,14 @@ function AddCoordForm(props){
 
                     <div className="input-field col s11">
                         <select name="group" value={group} onChange={e => setGroup(e.target.value)}>
-                            <option name="group" value="Lazer">Lazer</option>
-                            <option name="group" value="Restaurante">Restaurante</option>
-                            <option name="group" value="Serviços">Serviços</option>
+                            <option name="group" className="op-3" value="Lazer">Lazer</option>
+                            <option name="group" className="op-3" value="Restaurante">Restaurante</option>
+                            <option name="group" className="op-3" value="Serviços">Serviços</option>
                         </select>
                     </div>
 
                     <div className="col s11">
-                        <p ><b>Insira uma Nota</b></p>
+                        <p className="op-3"><b>Insira uma Nota</b></p>
                         <p>
                             <label>
                                 <input name="rating" type="radio" value="5" /><span>5</span>
