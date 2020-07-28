@@ -134,7 +134,7 @@ function AddCoordForm(props){
                         </div>
                     </div>
 
-                    <div className="row center-align mb-3">
+                    <div className="row center-align mb-2">
                         <SubmitButton message='Registrar' />
                         <button onClick={cancelSubmit} className=" mt-1 ml-1 waves-effect waves-light teal dark-2 btn">Cancelar</button>
                     </div>

@@ -34,7 +34,7 @@ function SideNav(){
 
     return (
         <div name="sidenav">
-            <ul id="slide-out" className={`sidenav ${expandNav}`}>
+            <ul id="slide-out" className={`scroll sidenav ${expandNav}`}>
                 <li name="userPanel">
                     <div className="user-view">
                         <div className="background">
