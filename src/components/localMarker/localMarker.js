@@ -5,6 +5,7 @@ import RemoveModal from './removeModal'
 function LocalMarker(props){
 
     const [ranking, setRanking] = useState()
+    const [localID, setlocalID] = useState()
 
     useEffect(() => {
         
@@ -15,9 +16,10 @@ function LocalMarker(props){
         setRanking(stars)
     }, [])
 
+    const x = () => console.log(props.localID)
+
+
     return (
-        <div>
-        <RemoveModal />
         <Marker position={[props.x, props.y]}>
             <Popup>
                 <div className="col s12 m12 z-depth-2">
@@ -31,14 +33,15 @@ function LocalMarker(props){
                             <p><b>Notas:</b> {props.notes}</p>
                         </div>
                         <div className="card-action">
-                            <a className="modal-trigger">Editar</a>
-                            <a className="modal-trigger" href="#modal1">Remover</a>
+                            <a onClick={() => x()}>Editar</a>
+                            <a  className="modal-trigger" 
+                                href="#modal1" 
+                                onClick={() => setlocalID(props.localID)}>Remover</a>
                         </div>
                     </div>
                 </div>
             </Popup>
         </Marker>
-        </div>
     )
 
 }

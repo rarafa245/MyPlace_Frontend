@@ -1,9 +1,11 @@
 import { axiosLogin,
         axiosRegisterCoords,
-        axiosGetUserCoords } from './axios'
+        axiosGetUserCoords,
+        axiosRemoveCoords } from './axios'
 
 export {
     axiosLogin,
     axiosRegisterCoords,
-    axiosGetUserCoords
+    axiosGetUserCoords,
+    axiosRemoveCoords
 }

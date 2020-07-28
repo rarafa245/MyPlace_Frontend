@@ -1,14 +1,25 @@
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
+import { axiosRemoveCoords } from './../../../services'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
 
 function RemoveModal(props){
 
+    const [localID, setLocalID] = useState()
+
     useEffect(() => {
+        setLocalID(props.localID)
         const elems = document.querySelectorAll('.modal')
         const instances = M.Modal.init(elems, {})
     }, [])
     
+
+    const removeCoords = () => {
+        console.log(props)
+        console.log(props.localID)
+       // axiosRemoveCoords(localID)
+    }
+
 
     return (
         <div id="modal1" className="modal">
@@ -23,7 +34,7 @@ function RemoveModal(props){
                 </p>
             </div>
             <div className="modal-footer">
-                <a href="#!" className="modal-close waves-effect waves-green btn-flat">Remover</a>
+                <a href="#!" onClick={() => removeCoords()} className="waves-effect waves-green btn-flat">Remover</a>
                 <a href="#!" className="modal-close waves-effect waves-green btn-flat">Cancelar</a>
             </div>
         </div>

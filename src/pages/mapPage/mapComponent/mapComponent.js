@@ -21,19 +21,20 @@ function MapComponent() {
     useEffect(() => {
         axiosGetUserCoords()
             .then(response => {
-                const userCoords = []
+                
                 const receivedCoords = response.coords
 
-                receivedCoords.forEach((element, index) => {
-                    userCoords.push(<LocalMarker    name={element.name}
-                                                    group={element.group}   
-                                                    rating={element.rating}
-                                                    x={element.x}           
-                                                    y={element.y} 
-                                                    notes={element.notes}
-                                                    key={index}
-                                                    />)
-                })
+                const userCoords = receivedCoords.map((element, index) => {
+                                        return (<LocalMarker name={element.name}
+                                                            group={element.group}   
+                                                            rating={element.rating}
+                                                            x={element.x}           
+                                                            y={element.y} 
+                                                            notes={element.notes}
+                                                            localID={element.localID}
+                                                            key={element.localID}
+                                                            />)
+                                    })
 
                 setUserLocals(userCoords)
             })
