@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Marker, Popup } from 'react-leaflet'
+import RemoveModal from './removeModal'
 
 function LocalMarker(props){
 
@@ -15,6 +16,8 @@ function LocalMarker(props){
     }, [])
 
     return (
+        <div>
+        <RemoveModal />
         <Marker position={[props.x, props.y]}>
             <Popup>
                 <div className="col s12 m12 z-depth-2">
@@ -28,13 +31,14 @@ function LocalMarker(props){
                             <p><b>Notas:</b> {props.notes}</p>
                         </div>
                         <div className="card-action">
-                            <a href="#">Editar</a>
-                            <a href="#">Remover</a>
+                            <a className="modal-trigger">Editar</a>
+                            <a className="modal-trigger" href="#modal1">Remover</a>
                         </div>
                     </div>
                 </div>
             </Popup>
         </Marker>
+        </div>
     )
 
 }

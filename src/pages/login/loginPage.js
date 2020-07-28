@@ -26,7 +26,7 @@ function LoginPage(props) {
       <div id="loginInfo" className="col s12 m5">
         <AssideInfo />
       </div>
-      
+
     </div>
   )
 }
