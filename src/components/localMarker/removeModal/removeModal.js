@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from "react"
-import { axiosRemoveCoords } from './../../../services'
 import M from 'materialize-css/dist/js/materialize.min.js'
+import { axiosRemoveCoords } from './../../../services'
 
 
 function RemoveModal(props){
 
-    const [localID, setLocalID] = useState()
+    const [modal, setModal] = useState()
 
     useEffect(() => {
-        setLocalID(props.localID)
-        const elems = document.querySelectorAll('.modal')
+        const elems = document.querySelectorAll('.removeModal')
         const instances = M.Modal.init(elems, {})
+        setModal(instances)
     }, [])
-    
 
     const removeCoords = () => {
-        console.log(props)
-        console.log(props.localID)
-       // axiosRemoveCoords(localID)
+        axiosRemoveCoords(props.localID)
     }
 
 
     return (
-        <div id="modal1" className="modal">
+        <div id={`modal${props.localID}`} className="modal removeModal">
             <div className="modal-content">
                 <i className="material-icons right">warning</i>
                 <h5>Deseja Mesmo Remover Este Local?</h5>
@@ -34,11 +31,11 @@ function RemoveModal(props){
                 </p>
             </div>
             <div className="modal-footer">
-                <a href="#!" onClick={() => removeCoords()} className="waves-effect waves-green btn-flat">Remover</a>
-                <a href="#!" className="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                <a href="#!" onClick={() => removeCoords()} value={true} className="modal-close waves-effect waves-green btn-flat">Remover</a>
+                <a href="#!" value={false} className="modal-close waves-effect waves-green btn-flat">Cancelar</a>
             </div>
         </div>
     )
 }
 
-export default RemoveModal
+export default React.memo(RemoveModal)

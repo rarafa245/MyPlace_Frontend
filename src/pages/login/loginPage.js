@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { AssideInfo } from '../../components'
 import LoginForm from './loginForm'
-import { StartNavBar } from '../../components'
+import { StartNavBar, LoadingModal } from '../../components'
 
 function LoginPage(props) {
   /* Loggin Page Component
@@ -27,6 +27,7 @@ function LoginPage(props) {
         <AssideInfo />
       </div>
 
+    
     </div>
   )
 }

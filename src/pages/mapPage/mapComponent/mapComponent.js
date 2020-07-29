@@ -26,13 +26,13 @@ function MapComponent() {
 
                 const userCoords = receivedCoords.map((element, index) => {
                                         return (<LocalMarker name={element.name}
-                                                            group={element.group}   
-                                                            rating={element.rating}
-                                                            x={element.x}           
-                                                            y={element.y} 
-                                                            notes={element.notes}
-                                                            localID={element.localID}
-                                                            key={element.localID}
+                                                             group={element.group}   
+                                                             rating={element.rating}
+                                                             x={element.x}           
+                                                             y={element.y} 
+                                                             notes={element.notes}
+                                                             localID={element.localID}
+                                                             key={index}
                                                             />)
                                     })
 
@@ -78,6 +78,7 @@ function MapComponent() {
             }
 
             {userLocals}
+
         </Map>
     )
 }
