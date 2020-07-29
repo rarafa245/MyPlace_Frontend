@@ -10,10 +10,16 @@ async function axiosRemoveCoords(localID){
             }
         })
         .then(res => {
-            console.log(res.data.message)
+            return {
+                status: res.data.status,
+                message: res.data.message
+            }
         })
         .catch(err => {
-            console.log(err)
+            return {
+                status: false,
+                message: 'Erro de Conexão, Tente Novamente!'
+            }
         })
     
     return response

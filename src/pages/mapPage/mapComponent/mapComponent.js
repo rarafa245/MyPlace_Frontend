@@ -1,6 +1,6 @@
 import React, { useState, useEffect  } from 'react'
 import { axiosGetUserCoords } from '../../../services'
-import { LocalMarker } from '../../../components'
+import { LocalMarker, LoadingModal } from '../../../components'
 import { useSelector, useDispatch } from 'react-redux'
 import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords, cleanSubmitMessage } from '../redux'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
@@ -78,7 +78,7 @@ function MapComponent() {
             }
 
             {userLocals}
-
+            <LoadingModal />
         </Map>
     )
 }

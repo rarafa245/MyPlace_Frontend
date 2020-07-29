@@ -5,16 +5,26 @@ import { axiosRemoveCoords } from './../../../services'
 
 function RemoveModal(props){
 
-    const [modal, setModal] = useState()
+    const [loading, setLoading] = useState()
 
     useEffect(() => {
         const elems = document.querySelectorAll('.removeModal')
         const instances = M.Modal.init(elems, {})
-        setModal(instances)
+
     }, [])
 
     const removeCoords = () => {
+        const elems = document.querySelectorAll('#loadingModal')
+        const instance = M.Modal.init(elems, {dismissible: false})[0]
+        instance.open()
+
         axiosRemoveCoords(props.localID)
+            .then((response) => {
+                (response.status)   ? M.toast({ html: response.message, completeCallback: () => window.location.reload() })
+                                    : M.toast({ html: response.message})
+            })
+            
+        instance.close()   
     }
 
 

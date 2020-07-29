@@ -14,7 +14,6 @@ async function axiosRegisterCoords(body){
                 status: res.data.status,
                 message: res.data.message
             }
-
         })
         .catch(err => {
             return {
