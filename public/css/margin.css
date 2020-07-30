@@ -82,3 +82,7 @@
     .mr-l-3{margin-right: 75px;}
     .mr-l-4{margin-right: 100px;}
 }
+
+div.leaflet-bottom div.leaflet-control-zoom{
+    margin-bottom: 60px;
+}

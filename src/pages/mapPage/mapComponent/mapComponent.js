@@ -3,7 +3,7 @@ import { axiosGetUserCoords } from '../../../services'
 import { LocalMarker, LoadingModal } from '../../../components'
 import { useSelector, useDispatch } from 'react-redux'
 import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords, cleanSubmitMessage } from '../redux'
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import { geosearch } from 'esri-leaflet-geocoder'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
@@ -79,8 +79,6 @@ function MapComponent() {
     }
 
     
-
-    
     const clickEvent = (e) => {
 
         if (setCoordsFlag) {
@@ -101,6 +99,7 @@ function MapComponent() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             />
+            <ZoomControl className="mb-2" position="bottomright"/>
             {clickMarker}
 
             {
