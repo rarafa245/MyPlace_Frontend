@@ -33,7 +33,7 @@ function SideNav(){
 
 
     return (
-        <div name="sidenav">
+        <div id="sidenav">
             <ul id="slide-out" className={`scroll sidenav ${expandNav}`}>
                 <li name="userPanel">
                     <div className="user-view">
@@ -60,7 +60,7 @@ function SideNav(){
 
             <a  name="icon"
                 data-target="slide-out" 
-                className={`btn-floating mt-1 btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger `}>
+                className={`btn-floating mt-2 btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger `}>
                 <i className="material-icons">menu</i>
             </a>
         </div>

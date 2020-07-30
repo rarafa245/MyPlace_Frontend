@@ -1,13 +1,16 @@
-import React, { useState, useEffect  } from 'react'
+import React, { useState, useEffect, useRef  } from 'react'
 import { axiosGetUserCoords } from '../../../services'
 import { LocalMarker, LoadingModal } from '../../../components'
 import { useSelector, useDispatch } from 'react-redux'
 import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords, cleanSubmitMessage } from '../redux'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { geosearch } from 'esri-leaflet-geocoder'
 import M from 'materialize-css/dist/js/materialize.min.js'
+
 
 function MapComponent() {
 
+    const mapRef = useRef()
     const position = [-19.9320, -43.9380]                       // Start Coordinates
     const [clickMarker, setClickMarker] = useState()            // Marker after click
     const [userLocals, setUserLocals] = useState()              // All user Locals infos
@@ -19,6 +22,14 @@ function MapComponent() {
     const submitStatus = useSelector( state => state.status )
 
     useEffect(() => {
+
+        const { current = {} } = mapRef
+        const { leafletElement: map } = current
+        const control = geosearch({position: 'topright'})
+        console.log(control)
+        control.addTo(map)
+
+
         axiosGetUserCoords()
             .then(response => {
                 
@@ -65,7 +76,7 @@ function MapComponent() {
     }
 
     return (
-        <Map onclick={(e) => clickEvent(e)} zoomControl={false} center={position} zoom={16}>
+        <Map ref={mapRef} onclick={(e) => clickEvent(e)} zoomControl={false} center={position} zoom={16}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
