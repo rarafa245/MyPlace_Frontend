@@ -11,9 +11,10 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 function MapComponent() {
 
     const mapRef = useRef()
-    const position = [-19.9320, -43.9380]                       // Start Coordinates
-    const [clickMarker, setClickMarker] = useState()            // Marker after click
-    const [userLocals, setUserLocals] = useState()              // All user Locals infos
+    const [position, setPosition] = useState([-19.9320, -43.9380])                  // Start Coordinates
+    const [zoom, setZoom] = useState(16)
+    const [clickMarker, setClickMarker] = useState()                                // Marker after click
+    const [userLocals, setUserLocals] = useState()                                 // All user Locals infos
 
     // Redux
     const dispatch = useDispatch()
@@ -26,8 +27,9 @@ function MapComponent() {
         const { current = {} } = mapRef
         const { leafletElement: map } = current
         const control = geosearch({position: 'topright'})
-        console.log(control)
         control.addTo(map)
+
+        control.on('results', handleOnSearchResults)
 
 
         axiosGetUserCoords()
@@ -49,7 +51,23 @@ function MapComponent() {
 
                 setUserLocals(userCoords)
             })
+        
+        return () => {
+            control.off('results', handleOnSearchResults)
+        }
+
     }, [])
+
+
+    function handleOnSearchResults(data) {
+        setPosition([data.latlng.lat, data.latlng.lng])
+        setZoom(17)
+        setClickMarker (
+            <Marker position={[data.latlng.lat, data.latlng.lng]} >
+                <Popup >{data.text}</Popup>
+            </Marker>
+        )
+    }
 
 
     const cleanMessage = () => {
@@ -59,6 +77,8 @@ function MapComponent() {
 
         dispatch(cleanSubmitMessage())
     }
+
+    
 
     
     const clickEvent = (e) => {
@@ -76,7 +96,7 @@ function MapComponent() {
     }
 
     return (
-        <Map ref={mapRef} onclick={(e) => clickEvent(e)} zoomControl={false} center={position} zoom={16}>
+        <Map ref={mapRef} onclick={(e) => clickEvent(e)} zoomControl={false} center={position} zoom={zoom}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
