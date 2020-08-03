@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GeneralOptions, AddCoordForm } from './displays'
+import { GeneralOptions, AddCoordForm, MyLocals } from './displays'
 import { useSelector } from 'react-redux'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
@@ -15,9 +15,10 @@ function SideNav(){
 
 
     const [sideNav, setSideNav] = useState()   
-    const [expandNav, setExpandNav] = useState('')                                     // SideNav instance in Materialize
-    const [activeIcon, setActiveIcon] = useState('')                                // Active: null / disable: disabled
-    const registerCoordsFlag = useSelector( state => state.registerCoordsFlag )     // Flag to Register Coordinates
+    const [expandNav, setExpandNav] = useState('')                                           // SideNav instance in Materialize
+    const [activeIcon, setActiveIcon] = useState('')                                         // Active: null / disable: disabled
+    const registerCoordsFlag = useSelector( state => state.addLocal.registerCoordsFlag )     // Flag to Register Coordinates
+    const [myLocalsFlag, setMyLocalsFlag] = useState(false)
 
     useEffect(() => {
         const elems = document.querySelectorAll('.sidenav')  
@@ -52,8 +53,15 @@ function SideNav(){
                                                                 setExpandNav={setExpandNav}
                                                                 setActiveIcon={setActiveIcon}/>)
                                              : 
-                                                (<GeneralOptions sideNav={sideNav} />)
+
+                        (myLocalsFlag)       ? (<MyLocals />)
+                            
+                                             : (<GeneralOptions sideNav={sideNav} 
+                                                                setMyLocalsFlag={setMyLocalsFlag}/>)
+
                     }
+
+                    
                 </div>
                 
             </ul>

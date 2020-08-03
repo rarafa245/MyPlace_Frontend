@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef  } from 'react'
 import { axiosGetUserCoords } from '../../../services'
 import { LocalMarker, LoadingModal } from '../../../components'
 import { useSelector, useDispatch } from 'react-redux'
-import { cleanMapCoordsFlag, setRegisterCoordsFlag, storeMapCoords, cleanSubmitMessage } from '../redux'
+import {    cleanMapCoordsFlag, 
+            setRegisterCoordsFlag, 
+            storeMapCoords, 
+            cleanSubmitMessage,
+            changeCenterCoords } from '../redux'
 import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import { geosearch } from 'esri-leaflet-geocoder'
 import M from 'materialize-css/dist/js/materialize.min.js'
@@ -11,16 +15,17 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 function MapComponent() {
 
     const mapRef = useRef()
-    const [position, setPosition] = useState([-19.9320, -43.9380])                  // Start Coordinates
-    const [zoom, setZoom] = useState(16)
+    const [zoom, setZoom] = useState(17)
     const [clickMarker, setClickMarker] = useState()                                // Marker after click
     const [userLocals, setUserLocals] = useState()                                 // All user Locals infos
 
     // Redux
     const dispatch = useDispatch()
-    const setCoordsFlag = useSelector( state => state.setCoordsFlag )
-    const submitMessage = useSelector( state => state.submitMessage )
-    const submitStatus = useSelector( state => state.status )
+    const setCoordsFlag = useSelector( state => state.addLocal.setCoordsFlag )
+    const submitMessage = useSelector( state => state.addLocal.submitMessage )
+    const submitStatus = useSelector( state => state.addLocal.status )
+    const centerLat = useSelector( state => state.changeCenterCoords.lat )
+    const centerLng = useSelector( state => state.changeCenterCoords.lng )
 
     useEffect(() => {
 
@@ -60,8 +65,6 @@ function MapComponent() {
 
 
     function handleOnSearchResults(data) {
-        setPosition([data.latlng.lat, data.latlng.lng])
-        setZoom(17)
         setClickMarker (
             <Marker position={[data.latlng.lat, data.latlng.lng]} >
                 <Popup >{data.text}</Popup>
@@ -94,7 +97,11 @@ function MapComponent() {
     }
 
     return (
-        <Map ref={mapRef} onclick={(e) => clickEvent(e)} zoomControl={false} center={position} zoom={zoom}>
+        <Map    ref={mapRef} 
+                onclick={(e) => clickEvent(e)} 
+                zoomControl={false} 
+                center={[centerLat, centerLng]} 
+                zoom={zoom}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"

@@ -21,8 +21,8 @@ function AddCoordForm(props){
 
     // Redux
     const dispatch = useDispatch()
-    const x = useSelector( state => state.x )
-    const y = useSelector( state => state.y )
+    const x = useSelector( state => state.addLocal.x )
+    const y = useSelector( state => state.addLocal.y )
 
 
     useEffect(() => {

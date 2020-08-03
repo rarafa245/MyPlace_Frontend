@@ -5,7 +5,8 @@ import {
     cleanRegisterCoordsFlag,
     storeMapCoords,
     setSubmitMessage,
-    cleanSubmitMessage } from './states/actions'
+    cleanSubmitMessage } from './addLocal/actions'
+import { changeCenterCoords } from './changeCenterCoords/actions'
 
     
 export {
@@ -15,5 +16,6 @@ export {
     cleanRegisterCoordsFlag,
     storeMapCoords,
     setSubmitMessage,
-    cleanSubmitMessage
+    cleanSubmitMessage,
+    changeCenterCoords
 }

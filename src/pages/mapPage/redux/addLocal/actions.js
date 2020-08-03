@@ -18,9 +18,9 @@ const storeMapCoords = (x, y) => ({type: STORE_MAP_COORDS,
                                 })
 
 const setSubmitMessage = (status, message) => ({type: SET_SUBMIT_MESSAGE,
-                                        message: message,
-                                        status: status
-                                    })
+                                                message: message,
+                                                status: status
+                                                })
 
 const cleanSubmitMessage = () => ({type: SET_SUBMIT_MESSAGE})            
 
