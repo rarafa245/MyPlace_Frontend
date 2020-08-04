@@ -4,7 +4,6 @@ import SubmitButton from './submitButton'
 import LocalMarker from './localMarker'
 import LoadingModal from './loadingModal'
 
-
 export {
   StartNavBar,
   AssideInfo,

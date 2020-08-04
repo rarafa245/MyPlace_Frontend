@@ -9,6 +9,7 @@ const reducerCoords = (state = initialStore, action) => {
 
     switch (action.type) {
         case CHANGE_CENTER_COORDS:
+            console.log('kkkkk')
             return {
                 ...state,
                 lat: action.lat,

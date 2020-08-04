@@ -86,3 +86,8 @@
 div.leaflet-bottom div.leaflet-control-zoom{
     margin-bottom: 60px;
 }
+
+.centerList{
+    margin-right: -35px;
+    margin-left: 35px;
+}

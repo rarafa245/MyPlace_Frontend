@@ -1,22 +1,48 @@
 import React from 'react'
+import { LocalList } from './../../../../../components'
+import { useDispatch } from 'react-redux'
+import { changeCenterCoords } from '../../../redux'
 
 function MyLocals() {
 
-    const clicktest = () => {
-        const elems = document.querySelectorAll('.leaflet-container')
-        console.log(elems)
-    }
+    const dispatch = useDispatch()
 
 
     return (
-        <ul className="collection">
-            <li onClick={() => clicktest()} className="collection-item">local1</li>
-            <li className="collection-item">local2</li>
-            <li className="collection-item">local3</li>
-            <li className="collection-item">local4</li>
-        </ul>
+        <div>
+            <ul className="collection">
+                <LocalLinks />
+                <LocalLinks />
+                <LocalLinks />
+            </ul>
+            <ul className="pagination centerList">
+                <li><a href="#!"><i className="material-icons">chevron_left</i></a></li>
+                <li><a href="#!"><i className="material-icons">chevron_right</i></a></li>
+            </ul>
+      </div>
     )
 
 }
+
+
+function LocalLinks() {
+
+    return (
+        <div className="row">
+            <li className="collection-item">
+                <div className="col s8 truncate">local1hdashdaksdhakhdajkhdahdadkjahdawudhaiudhakdhakuwdwha</div>
+                <div className="col s4">Nota</div>
+            </li>
+        </div>
+    )
+
+}
+
+
+
+
+
+
+
 
 export default MyLocals
