@@ -17,7 +17,10 @@ function GeneralOptions (props) {
 
     const addLocal = () => {
 
-        props.sideNav.close()
+        const elems = document.querySelectorAll('.sidenav')  
+        const instance = M.Sidenav.init(elems, {})[0]
+        instance.close()
+        
         M.toast({html: 'Selecione o Local Desejado no Mapa'})
         dispatch (setMapCoordsFlag())
     }

@@ -1,0 +1,9 @@
+npm i esri-leaflet-geocoder;
+npm i axios;
+npm i react-axios;
+npm i react-redux;
+npm i redux;
+npm install react-leaflet;
+npm install leaflet react react-dom;
+npm install materialize-css@next;
+npm i react-router-dom;

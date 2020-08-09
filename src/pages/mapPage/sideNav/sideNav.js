@@ -54,10 +54,9 @@ function SideNav(){
                                                                 setActiveIcon={setActiveIcon}/>)
                                              : 
 
-                        (myLocalsFlag)       ? (<MyLocals />)
+                        (myLocalsFlag)       ? (<MyLocals setMyLocalsFlag={setMyLocalsFlag}/>)
                             
-                                             : (<GeneralOptions sideNav={sideNav} 
-                                                                setMyLocalsFlag={setMyLocalsFlag}/>)
+                                             : (<GeneralOptions setMyLocalsFlag={setMyLocalsFlag}/>)
 
                     }
 
