@@ -9,12 +9,14 @@ function MyLocals(props) {
 
     const dispatch = useDispatch()
     const [locations, setLocations] = useState()
+    const [sideNav, setSideNav] = useState()
 
     useEffect(() => {
 
         const elems = document.querySelectorAll('.sidenav')  
         const instance = M.Sidenav.init(elems, {onCloseEnd: onClose})[0]
         instance.open()
+        setSideNav(instance)
 
         axiosGetCoordsPagination(1)
             .then(response => {
@@ -30,10 +32,7 @@ function MyLocals(props) {
                 })
 
                 setLocations(userCoords)
-
             })
-
-        return () => instance.close()
         
     }, [])
 
@@ -62,9 +61,9 @@ function LocalLinks(props) {
 
     return (
         <div className="row">
-            <li className="collection-item">
-                <div className="col s8 truncate">{props.name}</div>
-                <div className="col s4">{props.rating}</div>
+            <li className="options">
+                <div className="col s10 truncate"><span className="op-3">{props.name}</span></div>
+                <div className="col s2"><span className="op-3">{props.rating}</span></div>
             </li>
         </div>
     )
@@ -72,10 +71,4 @@ function LocalLinks(props) {
 }
 
 
-
-
-
-
-
-
-export default MyLocals
+export default React.memo(MyLocals)

@@ -17,12 +17,18 @@ function GeneralOptions (props) {
 
     const addLocal = () => {
 
-        const elems = document.querySelectorAll('.sidenav')  
+        const elems = document.querySelectorAll('.sidenav')
         const instance = M.Sidenav.init(elems, {})[0]
         instance.close()
-        
+
         M.toast({html: 'Selecione o Local Desejado no Mapa'})
         dispatch (setMapCoordsFlag())
+    }
+
+    const close = () => {
+        const elems = document.querySelectorAll('.sidenav')
+        const instance = M.Sidenav.init(elems, {})[0]
+        instance.destroy()
     }
 
 
@@ -33,7 +39,7 @@ function GeneralOptions (props) {
             <li><div className="divider"></div></li>
             <li><a onClick={() => addLocal()} className="link"><i className="material-icons">add</i>Adicionar Local</a></li>
             <li><a href="#!" className="link"><i className="material-icons">account_circle</i>Minha Conta</a></li>
-            <li><Link to="/logout" className="link sidenav-trigger"><i className="material-icons">chevron_left</i>Sair</Link></li>
+            <li><Link to="/logout" onClick={() => close()} className="link sidenav-trigger"><i className="material-icons">chevron_left</i>Sair</Link></li>
         </div>
     )
 }

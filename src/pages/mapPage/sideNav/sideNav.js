@@ -65,11 +65,11 @@ function SideNav(){
                 
             </ul>
 
-            <a  name="icon"
+            <button  name="icon"
                 data-target="slide-out" 
-                className={`btn-floating mt-2 btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger `}>
+                className={`btn-floating mt-2 btn-large ${activeIcon} floatButton teal dark-2 sidenav-trigger`}>
                 <i className="material-icons">menu</i>
-            </a>
+            </button>
         </div>
     )
 
