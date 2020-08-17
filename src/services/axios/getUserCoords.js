@@ -10,13 +10,22 @@ async function axiosGetUserCoords(){
             }
         })
         .then(res => {
-            return {
-                coords: res.data.coords
-            }
+            if (res.data.status)
+                return {
+                    status: res.data.status,
+                    coords: res.data.coords,
+                    count: res.data.coords
+                }
+            else 
+                return {
+                    status: res.data.status,
+                    message: 'Ocorreu um erro. Tente novamente!'
+                }
         })
         .catch(err => {
             return {
-                coords: []
+                status: false,
+                message: 'Erro de Conexão. Tente novamente!'
             }
         })
     

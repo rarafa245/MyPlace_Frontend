@@ -10,6 +10,10 @@ function LoginForm(props){
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    return () => location.reload()
+  }, []) 
+
 
   const handleSubmit = (event) => {
 

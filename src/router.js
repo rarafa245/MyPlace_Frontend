@@ -5,7 +5,7 @@ import { LoginPage, MapPage, LogoutPage } from './pages'
 function App() {
 
     return (
-      <Router>
+      <Router history={history}>
           <Switch>
             <Route exact path={'/'} component={LoginPage}/>
             <PrivateRoute exact path={'/home'} component={MapPage}/>

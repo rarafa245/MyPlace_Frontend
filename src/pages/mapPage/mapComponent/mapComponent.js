@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {    cleanMapCoordsFlag, 
             setRegisterCoordsFlag, 
             storeMapCoords, 
-            cleanSubmitMessage,
-            changeCenterCoords } from '../redux'
+            cleanSubmitMessage } from '../redux'
 import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import { geosearch } from 'esri-leaflet-geocoder'
 import M from 'materialize-css/dist/js/materialize.min.js'
@@ -18,6 +17,8 @@ function MapComponent() {
     const [zoom, setZoom] = useState(17)
     const [clickMarker, setClickMarker] = useState()                                // Marker after click
     const [userLocals, setUserLocals] = useState()                                 // All user Locals infos
+    const [loading, setLoading] = useState(true)
+    const [loadingModal, setLoadingModal] = useState()
 
     // Redux
     const dispatch = useDispatch()
@@ -37,26 +38,39 @@ function MapComponent() {
         control.on('results', handleOnSearchResults)
 
 
-        axiosGetUserCoords()
+        document.addEventListener('DOMContentLoaded', () => {
+            const elems = document.querySelectorAll('#modalStatus')
+            const instances = M.Modal.init(elems, {dismissible: false})[0]
+            instances.open()
+
+            axiosGetUserCoords()
             .then(response => {
-                
-                const receivedCoords = response.coords
+                if (response.status) {
+                    console.log(loadingModal)
+                    const receivedCoords = response.coords
 
-                const userCoords = receivedCoords.map((element, index) => {
-                                        return (<LocalMarker name={element.name}
-                                                             group={element.group}   
-                                                             rating={element.rating}
-                                                             x={element.x}           
-                                                             y={element.y} 
-                                                             notes={element.notes}
-                                                             localID={element.localID}
-                                                             key={index}
-                                                            />)
-                                    })
+                    const userCoords = receivedCoords.map((element, index) => {
+                                            return (<LocalMarker name={element.name}
+                                                                group={element.group}   
+                                                                rating={element.rating}
+                                                                x={element.x}           
+                                                                y={element.y} 
+                                                                notes={element.notes}
+                                                                localID={element.localID}
+                                                                key={index}
+                                                                />)
+                                        })
 
-                setUserLocals(userCoords)
+                    setUserLocals(userCoords)
+                    instances.close()
+                } else {
+                    M.toast({ html: response.message })
+                    instances.close()
+                }
             })
-        
+        })
+
+
         return () => {
             control.off('results', handleOnSearchResults)
         }
@@ -113,6 +127,16 @@ function MapComponent() {
                 (submitMessage) ?   (cleanMessage())
                                 :   null                   
             }
+
+           <div id="modalStatus" className="modal">
+                <div className="modal-content">
+                    <h6>Carregando Locais, Aguarde um Momento...</h6>
+                </div>
+                <div className="progress">
+                    <div className="indeterminate"></div>
+                </div>
+            </div>
+            
 
             {userLocals}
             <LoadingModal />

@@ -25,6 +25,14 @@
     z-index: 400;
 }
 
+.floadLoading {
+    position: absolute;
+    top: 20px;
+    right: 60px;
+    padding: 10px;
+    z-index: 400;
+}
+
 .link {
     opacity: 0.8;
 }
