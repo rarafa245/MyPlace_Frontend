@@ -17,7 +17,6 @@ function MapComponent() {
     const [zoom, setZoom] = useState(17)
     const [clickMarker, setClickMarker] = useState()                                // Marker after click
     const [userLocals, setUserLocals] = useState()                                 // All user Locals infos
-    const [loading, setLoading] = useState(true)
     const [loadingModal, setLoadingModal] = useState()
 
     // Redux
@@ -39,6 +38,7 @@ function MapComponent() {
 
 
         document.addEventListener('DOMContentLoaded', () => {
+
             const elems = document.querySelectorAll('#modalStatus')
             const instances = M.Modal.init(elems, {dismissible: false})[0]
             instances.open()
@@ -46,7 +46,6 @@ function MapComponent() {
             axiosGetUserCoords()
             .then(response => {
                 if (response.status) {
-                    console.log(loadingModal)
                     const receivedCoords = response.coords
 
                     const userCoords = receivedCoords.map((element, index) => {
@@ -130,7 +129,7 @@ function MapComponent() {
 
            <div id="modalStatus" className="modal">
                 <div className="modal-content">
-                    <h6>Carregando Locais, Aguarde um Momento...</h6>
+                    <h6>Carregando Locais. Aguarde...</h6>
                 </div>
                 <div className="progress">
                     <div className="indeterminate"></div>

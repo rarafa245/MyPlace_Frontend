@@ -11,8 +11,7 @@ async function axiosGetCoordsPagination(page){
         })
         .then(res => {
             return {
-                coords: res.data.coords,
-                pages: res.data.pages
+                coords: res.data.coords
             }
         })
         .catch(err => {

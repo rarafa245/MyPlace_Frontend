@@ -8,7 +8,7 @@ function MyLocals(props) {
 
     const [locations, setLocations] = useState()
     const [page, setPage] = useState(0)
-    const [totalPages, setTotalPages] = useState()
+    const [locationsCount, setlocationsCount] = useState()
 
     useEffect(() => {
 
@@ -18,23 +18,26 @@ function MyLocals(props) {
 
         axiosGetCoordsPagination(page)
             .then(response => {
+                let RequestCounter = 0
+                const pagination = 5
                 const receivedCoords = response.coords
                 const userCoords = receivedCoords.map((element, index) => {
+                    RequestCounter++
                     return (<LocalLinks name={element.name}   
                                         rating={element.rating}
                                         x={element.x}           
                                         y={element.y} 
-                                        key={index}
+                                        key={pagination * page + index}
                                     />)
                 })
+                setlocationsCount(RequestCounter)
                 setLocations(userCoords)
-                setTotalPages(response.pages - 1)
             })
         
     }, [page])
 
     const onClose = () => props.setMyLocalsFlag(false)
-    const nextPage = () => (page < totalPages) && setPage(page + 1)
+    const nextPage = () => (locationsCount === 5) && setPage(page + 1)
     const previousPage = () => (0 < page) && setPage(page - 1)
 
 
@@ -82,4 +85,4 @@ function LocalLinks(props) {
 }
 
 
-export default React.memo(MyLocals)
+export default MyLocals
