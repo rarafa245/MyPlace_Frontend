@@ -10,14 +10,22 @@ async function axiosGetCoordsPagination(page){
             }
         })
         .then(res => {
-            return {
-                coords: res.data.coords
-            }
+            if (res.data.status)
+                return {
+                    status: res.data.status,
+                    coords: res.data.coords
+                }
+            else
+                return {
+                    status: res.data.status,
+                }
         })
         .catch(err => {
-            console.log('deu Ruim')
+            return {
+                status: false
+            }
         })
-    
+
     return response
 }
 

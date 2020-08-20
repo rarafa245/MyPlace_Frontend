@@ -44,6 +44,10 @@ function AddCoordForm(props){
 
         event.preventDefault()
 
+        const elems = document.querySelectorAll('#modalStatus')
+        const instances = M.Modal.init(elems, {dismissible: false})[0]
+        instances.open()
+
         const LOCALDATA = new FormData(event.target)
         LOCALDATA.append('x', x)
         LOCALDATA.append('y', y)
@@ -54,12 +58,14 @@ function AddCoordForm(props){
                 props.setActiveIcon('')
                 dispatch(cleanRegisterCoordsFlag())
                 dispatch(setSubmitMessage(response.status, response.message ))
+                instances.close()
             })
             .catch((error) => {
                 props.sideNav.close()
                 props.setActiveIcon('')
                 dispatch(cleanRegisterCoordsFlag())
                 dispatch(setSubmitMessage(error.status, error.message))
+                instances.close()
             })
     }
 

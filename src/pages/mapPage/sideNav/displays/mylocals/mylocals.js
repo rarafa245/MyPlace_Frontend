@@ -9,46 +9,62 @@ function MyLocals(props) {
     const [locations, setLocations] = useState()
     const [page, setPage] = useState(0)
     const [locationsCount, setlocationsCount] = useState()
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
-        const elems = document.querySelectorAll('.sidenav')  
+        const elems = document.querySelectorAll('.sidenav')
         const instance = M.Sidenav.init(elems, {onCloseEnd: onClose})[0]
         instance.open()
 
         axiosGetCoordsPagination(page)
             .then(response => {
-                let RequestCounter = 0
-                const pagination = 5
-                const receivedCoords = response.coords
-                const userCoords = receivedCoords.map((element, index) => {
-                    RequestCounter++
-                    return (<LocalLinks name={element.name}   
-                                        rating={element.rating}
-                                        x={element.x}           
-                                        y={element.y} 
-                                        key={pagination * page + index}
-                                    />)
-                })
-                setlocationsCount(RequestCounter)
-                setLocations(userCoords)
+                if (response.status) {
+                    let RequestCounter = 0
+                    const pagination = 5
+                    const receivedCoords = response.coords
+                    const userCoords = receivedCoords.map((element, index) => {
+                        RequestCounter++
+                        return (<LocalLinks name={element.name}
+                                            rating={element.rating}
+                                            x={element.x}
+                                            y={element.y}
+                                            key={pagination * page + index}
+                                        />)
+                    })
+                    setlocationsCount(RequestCounter)
+                    setLocations(userCoords)
+                    setLoading(false)
+                } else {
+                  M.toast({html: 'Ocorreu um erro. Tente Novamente!'})
+                  setLoading(false)
+                }
+
             })
-        
+
     }, [page])
 
     const onClose = () => props.setMyLocalsFlag(false)
-    const nextPage = () => (locationsCount === 5) && setPage(page + 1)
-    const previousPage = () => (0 < page) && setPage(page - 1)
+    const nextPage = () => (locationsCount === 5 & !(loading)) && setPage(page + 1)
+    const previousPage = () => (0 < page & !(loading)) && setPage(page - 1)
 
 
     return (
         <div>
             <div className="row">
                 <div className="col s9"><span className="op-3"><b>Locais</b></span></div>
-                <div className="col s3 center-align"><span className="op-3"><b>Ranking</b></span></div>
+                <div className="col s3 center-align"><span className="op-3"><b>Nota</b></span></div>
             </div>
             <ul className="collection">
-                {locations}
+
+              {
+                (loading) ? (<div className="progress">
+                                <div className="indeterminate"></div>
+                            </div>)
+                          :
+                            (locations)
+              }
+
             </ul>
             <ul className="pagination centerList">
                 <li><a onClick={() => previousPage()}><i className="material-icons">chevron_left</i></a></li>
