@@ -19,12 +19,14 @@ async function axiosGetUserCoords(){
             else
                 return {
                     status: res.data.status,
+                    jwtError: res.data.jwtError,
                     message: 'Ocorreu um erro. Tente novamente!'
                 }
         })
         .catch(err => {
             return {
                 status: false,
+                jwtError: false,
                 message: 'Erro de Conexão. Tente novamente!'
             }
         })

@@ -36,8 +36,8 @@ function MyLocals(props) {
                     setLocations(userCoords)
                     setLoading(false)
                 } else {
-                  M.toast({html: 'Ocorreu um erro. Tente Novamente!'})
-                  setLoading(false)
+                    M.toast({html: 'Ocorreu um erro. Tente Novamente!'})
+                    setLoading(false)
                 }
 
             })

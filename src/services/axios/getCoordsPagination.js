@@ -18,11 +18,13 @@ async function axiosGetCoordsPagination(page){
             else
                 return {
                     status: res.data.status,
+                    jwtError: res.data.jwtError
                 }
         })
         .catch(err => {
             return {
-                status: false
+                status: false,
+                jwtError: false
             }
         })
 
