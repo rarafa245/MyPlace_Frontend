@@ -44,7 +44,7 @@ function AddCoordForm(props){
 
         event.preventDefault()
 
-        const elems = document.querySelectorAll('#modalStatus')
+        const elems = document.querySelectorAll('#loadingModal')
         const instances = M.Modal.init(elems, {dismissible: false})[0]
         instances.open()
 
