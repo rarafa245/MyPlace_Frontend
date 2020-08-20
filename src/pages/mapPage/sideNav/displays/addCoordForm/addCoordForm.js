@@ -41,7 +41,7 @@ function AddCoordForm(props){
 
 
     const submitLocal = () => {
-        
+
         event.preventDefault()
 
         const LOCALDATA = new FormData(event.target)
@@ -77,9 +77,11 @@ function AddCoordForm(props){
                 <div className="row">
 
                     <div className="input-field col s11">
+                        <i className="material-icons small prefix">mode_edit</i>
                         <input  id="local"
-                                className="validate" 
+                                className="validate"
                                 name="localName"
+                                data-length="35"
                                 value={localName}
                                 onChange={ e => setLocalName(e.target.value) }
                                 type="text"/>
@@ -87,6 +89,7 @@ function AddCoordForm(props){
                     </div>
 
                     <div className="input-field col s11">
+                        <i className="material-icons small prefix">assignment</i>
                         <select name="group" value={group} onChange={e => setGroup(e.target.value)}>
                             <option name="group" className="op-3" value="Lazer">Lazer</option>
                             <option name="group" className="op-3" value="Restaurante">Restaurante</option>
@@ -125,10 +128,11 @@ function AddCoordForm(props){
 
                     <div className="row">
                         <div className="input-field col s12">
-                            <textarea   id="textarea1" 
+                            <i className="material-icons small prefix">note</i>
+                            <textarea   id="textarea1"
                                         name="notes"
                                         className="materialize-textarea"
-                                        value={notes} 
+                                        value={notes}
                                         onChange={ e => setNotes(e.target.value) } />
                             <label htmlFor="textarea1">Descrição (Opcional)</label>
                         </div>
@@ -138,7 +142,7 @@ function AddCoordForm(props){
                         <SubmitButton message='Registrar' />
                         <button onClick={cancelSubmit} className=" mt-1 ml-1 waves-effect waves-light teal dark-2 btn">Cancelar</button>
                     </div>
-                    
+
                 </div>
             </form>
         </div>

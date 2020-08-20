@@ -16,7 +16,7 @@ async function axiosGetUserCoords(){
                     coords: res.data.coords,
                     count: res.data.coords
                 }
-            else 
+            else
                 return {
                     status: res.data.status,
                     message: 'Ocorreu um erro. Tente novamente!'
@@ -28,7 +28,7 @@ async function axiosGetUserCoords(){
                 message: 'Erro de Conexão. Tente novamente!'
             }
         })
-    
+
     return response
 }
 
