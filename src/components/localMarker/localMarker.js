@@ -20,7 +20,7 @@ function LocalMarker(props){
     return (
         <div>
             <Marker position={[props.x, props.y]}>
-                <RemoveModal localID={props.localID}/>
+                <RemoveModal {...props} localID={props.localID}/>
                 <Popup>
                     <div className="col s12 m12 z-depth-2">
                         <div className="card blue-grey darken-2">

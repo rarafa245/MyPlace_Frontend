@@ -36,8 +36,14 @@ function MyLocals(props) {
                     setLocations(userCoords)
                     setLoading(false)
                 } else {
-                    M.toast({html: 'Ocorreu um erro. Tente Novamente!'})
-                    setLoading(false)
+                    if (response.jwtError) {
+                        alert('Sessão Expirou! Entre Novamente!')
+                        props.history.push({pathname: '/logout'})
+                        return
+                    } else {
+                        M.toast({html: 'Ocorreu um erro. Tente Novamente!'})
+                        setLoading(false)
+                    }
                 }
 
             })

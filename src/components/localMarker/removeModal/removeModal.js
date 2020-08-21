@@ -20,8 +20,19 @@ function RemoveModal(props){
 
         axiosRemoveCoords(props.localID)
             .then((response) => {
-                (response.status)   ? M.toast({ html: response.message, completeCallback: () => window.location.reload() })
-                                    : M.toast({ html: response.message})
+                if (response.status)
+                    M.toast({ html: response.message, completeCallback: () => window.location.reload() })
+                else {
+                    if (response.jwtError) {
+                        alert('Sessão Expirou! Entre Novamente!')
+                        props.history.push({pathname: '/logout'})
+                        return
+                    } else {
+                        M.toast({ html: response.message})
+                    }
+                }
+                
+                    
             })
             
         instance.close()   

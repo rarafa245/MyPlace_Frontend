@@ -11,13 +11,12 @@ import { geosearch } from 'esri-leaflet-geocoder'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
 
-function MapComponent() {
+function MapComponent(props) {
 
     const mapRef = useRef()
     const [zoom, setZoom] = useState(17)
     const [clickMarker, setClickMarker] = useState()                                // Marker after click
     const [userLocals, setUserLocals] = useState()                                 // All user Locals infos
-    const [loadingModal, setLoadingModal] = useState()
 
     // Redux
     const dispatch = useDispatch()
@@ -46,10 +45,11 @@ function MapComponent() {
             axiosGetUserCoords()
             .then(response => {
                 if (response.status) {
-                    const receivedCoords = response.coords
 
+                    const receivedCoords = response.coords
                     const userCoords = receivedCoords.map((element, index) => {
-                                            return (<LocalMarker name={element.name}
+                                            return (<LocalMarker {...props} 
+                                                                name={element.name}
                                                                 group={element.group}   
                                                                 rating={element.rating}
                                                                 x={element.x}           
@@ -63,8 +63,14 @@ function MapComponent() {
                     setUserLocals(userCoords)
                     instances.close()
                 } else {
-                    M.toast({ html: response.message })
-                    instances.close()
+                    if (response.jwtError) {
+                        alert('Sessão Expirou! Entre Novamente!')
+                        props.history.push({pathname: '/logout'})
+                        return
+                    } else {
+                        M.toast({ html: response.message })
+                        instances.close()
+                    }
                 }
             })
         })

@@ -54,11 +54,22 @@ function AddCoordForm(props){
 
         axiosRegisterCoords(LOCALDATA)
             .then((response) => {
-                props.sideNav.close()
-                props.setActiveIcon('')
-                dispatch(cleanRegisterCoordsFlag())
-                dispatch(setSubmitMessage(response.status, response.message ))
-                instances.close()
+                if (response.status) {
+                    props.sideNav.close()
+                    props.setActiveIcon('')
+                    dispatch(cleanRegisterCoordsFlag())
+                    dispatch(setSubmitMessage(response.status, response.message ))
+                    instances.close()
+                } else {
+                    if (response.jwtError) {
+                        alert('Sessão Expirou! Entre Novamente!')
+                        props.history.push({pathname: '/logout'})
+                        return
+                    } else {
+                        M.toast({html: 'Ocorreu um erro. Tente Novamente!'})
+                        instances.close()
+                    }
+                }
             })
             .catch((error) => {
                 props.sideNav.close()

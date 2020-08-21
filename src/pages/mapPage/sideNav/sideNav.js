@@ -5,7 +5,7 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 
 
 
-function SideNav(){
+function SideNav(props){
     /* SideNav Component
         :name   - sidenav : All the SideNav structure
                 - userPanel : Panel for user Infos (Image, Username, Email)
@@ -49,12 +49,14 @@ function SideNav(){
 
                 <div name="options">
                     {
-                        (registerCoordsFlag) ?  (<AddCoordForm  sideNav={sideNav}
+                        (registerCoordsFlag) ?  (<AddCoordForm  {...props}
+                                                                sideNav={sideNav}
                                                                 setExpandNav={setExpandNav}
                                                                 setActiveIcon={setActiveIcon}/>)
                                              : 
 
-                        (myLocalsFlag)       ? (<MyLocals setMyLocalsFlag={setMyLocalsFlag}/>)
+                        (myLocalsFlag)       ? (<MyLocals   {...props}
+                                                            setMyLocalsFlag={setMyLocalsFlag}/>)
                             
                                              : (<GeneralOptions setMyLocalsFlag={setMyLocalsFlag}/>)
 
